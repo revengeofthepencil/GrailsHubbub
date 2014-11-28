@@ -1,5 +1,7 @@
 package com.grailsinaction
 
+import org.junit.internal.runners.statements.FailOnTimeout;
+
 import spock.lang.*
 
 class UserIntegrationIntegrationSpec extends Specification {
@@ -14,5 +16,21 @@ class UserIntegrationIntegrationSpec extends Specification {
 		joe.errors.errorCount == 0
 		joe.id != null
 		User.get(joe.id).loginId == joe.loginId
+	}
+	
+	
+	def "updating a saved user"() {
+		given: "An existing user"
+		def testPassword = 'ohyeah!'
+		def existingUser = new User(loginId: 'joe', password: 'secret',
+			homepage: 'http://www.joe.com')
+		existingUser.save(failOnError: true)
+		when: "a property is changed"
+		def foundUser = User.get(existingUser.id)
+		foundUser.password = testPassword
+		foundUser.save(failOnError: true)
+		
+		then: "The change persists in the DB"
+		User.get(existingUser.id).password == testPassword
 	}
 }
