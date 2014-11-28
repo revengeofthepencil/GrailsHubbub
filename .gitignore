@@ -32,3 +32,5 @@
 
 .project
 .classpath
+.settings/*
+target-eclipse/*
