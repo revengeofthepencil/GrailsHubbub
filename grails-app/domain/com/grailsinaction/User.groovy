@@ -2,6 +2,9 @@ package com.grailsinaction
 
 class User {
 
-    static constraints = {
-    }
+    String loginId
+    String password
+    String homepage
+    Date dateCreated
+	// TODO: add lastUpdated
 }
