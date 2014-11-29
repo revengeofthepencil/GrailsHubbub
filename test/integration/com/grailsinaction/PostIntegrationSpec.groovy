@@ -2,7 +2,7 @@ package com.grailsinaction
 
 import grails.test.spock.IntegrationSpec
 
-class PostIntegrationIntegrationSpec extends IntegrationSpec {
+class PostIntegrationSpec extends IntegrationSpec {
 	
 	void "adding posts to user links posts correctly"() {
 		given: "A brand spanking new user"

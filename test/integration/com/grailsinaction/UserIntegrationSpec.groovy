@@ -4,7 +4,7 @@ import org.junit.internal.runners.statements.FailOnTimeout;
 
 import spock.lang.*
 
-class UserIntegrationIntegrationSpec extends Specification {
+class UserIntegrationSpec extends Specification {
 
 	
     def "saving a user to the DB"() {
@@ -75,8 +75,7 @@ class UserIntegrationIntegrationSpec extends Specification {
 	
 	def "deleteing a saved user"() {
 		given: "An existing user"
-		def existingUser = new User(loginId: 'joe', password: 'secret',
-			homepage: 'http://www.joe.com')
+		def existingUser = new User(loginId: 'joe', password: 'secret')
 		existingUser.save(failOnError: true)
 
 		when: "the user is deleted"
@@ -86,4 +85,23 @@ class UserIntegrationIntegrationSpec extends Specification {
 		then: "The user is no longer in the DB"
 		!User.exists(foundUser.id)
 	}
+	
+
+	def "following a user"() {
+		given: "An set of existing users"
+		def john = new User(loginId: 'john', password:'password').save()
+		def tom = new User(loginId:'tom', password:'secret').save()
+		def nina = new User(loginId:'nina', password:'secret').save()
+
+		when: "Tom follows John & Nina, Nina follows John"
+		tom.addToFollowing(john)
+		tom.addToFollowing(nina)
+		nina.addToFollowing(john)
+		
+		then: "follower counts should be correct"
+		2 == tom.following.size()
+		1 == nina.following.size()
+	}
+
+	
 }

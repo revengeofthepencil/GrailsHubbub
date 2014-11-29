@@ -8,7 +8,7 @@ class User {
 	Date lastUpdated
 	
 	static hasOne = [profile : Profile]
-	static hasMany = [ posts : Post, tags : Tag ]
+    static hasMany = [ posts : Post, tags : Tag, following : User ]
 	static mapping = {
 		posts sort:'dateCreated'
 	}
