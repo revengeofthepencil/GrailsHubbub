@@ -33,4 +33,18 @@ class UserIntegrationIntegrationSpec extends Specification {
 		then: "The change persists in the DB"
 		User.get(existingUser.id).password == testPassword
 	}
+	
+	def "deleteing a saved user"() {
+		given: "An existing user"
+		def existingUser = new User(loginId: 'joe', password: 'secret',
+			homepage: 'http://www.joe.com')
+		existingUser.save(failOnError: true)
+
+		when: "the user is deleted"
+		def foundUser = User.get(existingUser.id)
+		foundUser.delete(flush: true)
+		
+		then: "The user is no longer in the DB"
+		!User.exists(foundUser.id)
+	}
 }
