@@ -6,10 +6,10 @@ import spock.lang.*
 
 class UserIntegrationIntegrationSpec extends Specification {
 
+	
     def "saving a user to the DB"() {
 		given: "A brand spanking new user"
-		def joe = new User(loginId: 'joe', password: 'secret',
-			homepage: 'http://www.joe.com')
+		def joe = new User(loginId: 'joe', password: 'secret')
 		when: "the user is saved"
 		joe.save()
 		then: "it saved successfully and can be found in the DB"
@@ -22,8 +22,7 @@ class UserIntegrationIntegrationSpec extends Specification {
 	def "updating a saved user"() {
 		given: "An existing user"
 		def testPassword = 'ohyeah!'
-		def existingUser = new User(loginId: 'joe', password: 'secret',
-			homepage: 'http://www.joe.com')
+		def existingUser = new User(loginId: 'joe', password: 'secret')
 		existingUser.save(failOnError: true)
 		when: "a property is changed"
 		def foundUser = User.get(existingUser.id)
@@ -35,11 +34,34 @@ class UserIntegrationIntegrationSpec extends Specification {
 	}
 	
 	
+	def "validation applied when saving a user"() {
+		given: "An invalid user record"
+		def invalidUser = new User(loginId: 'joe', password: 'tiny', 
+			profile: new Profile(homepage: 'http://not-a-valid-url'))
+		
+		when: "the user is validated"
+
+		invalidUser.validate()
+		// TODO: it seems wonky to explicitly call this 
+		invalidUser.profile.validate()
+		
+		then:
+		invalidUser.hasErrors()
+		"size.toosmall" == invalidUser.errors.getFieldError("password").code
+		"tiny" == invalidUser.errors.getFieldError("password").rejectedValue
+
+		"url.invalid" == invalidUser.profile.errors.getFieldError("homepage").code
+		"http://not-a-valid-url" == invalidUser.profile.errors.getFieldError("homepage").rejectedValue
+		
+		!invalidUser.errors.getFieldError("loginId")
+
+	}
+	
+	
 	def "extra validation applied to make sure password does not match id"() {
 		given: "An invalid user record"
 		def invalidUser = new User(loginId: 'longenough',
-			password: 'longenough',
-			homepage: 'http://www.google.com')
+			password: 'longenough')
 
 		when: "the user is validated"
 		invalidUser.validate()
