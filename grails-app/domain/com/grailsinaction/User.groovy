@@ -5,9 +5,13 @@ class User {
     String loginId
     String password
     Date dateCreated
-	// TODO: add lastUpdated
+	Date lastUpdated
 	
 	static hasOne = [profile : Profile]
+	static hasMany = [ posts : Post, tags : Tag ]
+	static mapping = {
+		posts sort:'dateCreated'
+	}
 	
 	static constraints = {
 		loginId size: 3..30, unique: true, nullable: false
