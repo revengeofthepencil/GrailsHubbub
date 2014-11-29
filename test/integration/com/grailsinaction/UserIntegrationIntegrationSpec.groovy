@@ -34,6 +34,23 @@ class UserIntegrationIntegrationSpec extends Specification {
 		User.get(existingUser.id).password == testPassword
 	}
 	
+	
+	def "extra validation applied to make sure password does not match id"() {
+		given: "An invalid user record"
+		def invalidUser = new User(loginId: 'longenough',
+			password: 'longenough',
+			homepage: 'http://www.google.com')
+
+		when: "the user is validated"
+		invalidUser.validate()
+		
+		then:
+		invalidUser.hasErrors()
+		// TODO: what is the appropriate code?
+		"longenough" == invalidUser.errors.getFieldError("password").rejectedValue
+	}
+	
+	
 	def "deleteing a saved user"() {
 		given: "An existing user"
 		def existingUser = new User(loginId: 'joe', password: 'secret',
