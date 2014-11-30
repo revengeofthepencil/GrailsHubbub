@@ -21,4 +21,7 @@ class User {
 		profile nullable: true
 		
 	}
+	
+	String displayName() { return loginId }
+	
 }

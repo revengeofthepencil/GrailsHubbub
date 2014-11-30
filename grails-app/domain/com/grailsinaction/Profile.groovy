@@ -24,4 +24,5 @@ class Profile {
 		
 	}
 
+	String displayName() { return fullName }
 }
