@@ -23,6 +23,7 @@ class Profile {
 		jabberAddress email: true, nullable: true
 		
 	}
-
-	String displayName() { return fullName }
+	
+    String toString() { return "Profile of $fullName (id: $id)" }
+    String getDisplayString() { return fullName }
 }

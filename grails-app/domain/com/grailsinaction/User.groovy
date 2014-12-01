@@ -21,7 +21,7 @@ class User {
 		profile nullable: true
 		
 	}
-	
-	String displayName() { return loginId }
-	
+
+    String toString() { return "User $loginId (id: $id)" }
+    String getDisplayString() { return loginId }	
 }
