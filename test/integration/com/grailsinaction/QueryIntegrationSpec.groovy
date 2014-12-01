@@ -11,9 +11,17 @@ class QueryIntegrationSpec extends IntegrationSpec {
 		}.list(sort: "loginId")
 		
 		then: "The users with that password are returned"
+		users.size() > 0 
 		users*.loginId == ["frankie"]
     }
 	
+	void "Property Comparison with Like"() {
+		when: "Users are selected based on 'login ID like' match"
+		def users = User.findAllByLoginIdIlike("%franki%")
+		then: "The users with that password are returned"
+		users.size() > 0
+		users*.loginId == ["frankie"]
+	}
 	
 	void "Multiple criteria comparison"() {
 		when: "A user is selected by loginId or password"
@@ -48,6 +56,31 @@ class QueryIntegrationSpec extends IntegrationSpec {
 		
 		then: "The users created within the given date range are returned"
 		users*.loginId == ["phil", "peter", "glen","frankie","chuck_norris", "admin"]
+	}
+	
+	
+	
+	void "Criteria query for loginID and date created"() {
+		
+		given: "The current date and time and a partial login ID"
+		def now = new Date()
+		def loginIdPart = 'franki'
+		
+		
+		when: "the 'dateCreated' property is queried in a criteria query with the login id"
+		
+		def users = User.createCriteria().list {
+			and {
+				ilike "loginId", "%${loginIdPart}%"
+				if (now) {
+					ge "dateCreated", now - 1
+				}
+			}
+		}
+		
+		then: "The users with that login ID and password are returned"
+		users.size() > 0 
+		users*.loginId == ["frankie"]
 	}
 	
 	void "Retrieve a single instance"() {
