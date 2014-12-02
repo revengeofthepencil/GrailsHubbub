@@ -13,6 +13,16 @@ class PostController {
 		redirect(action: 'timeline', params:params)
 	}
 	
+	
+	def timeline() {
+		def user = User.findByLoginId(params.id)
+		if (!user) {
+			response.sendError(404)
+		} else {
+			[user : user]
+		}
+	}
+	
 	def addPost() {
 		def user = User.findByLoginId(params.id)
 		if (user) {
@@ -30,12 +40,4 @@ class PostController {
 		redirect(action: 'timeline', id: params.id)
 	}
 	
-	def timeline() {
-		def user = User.findByLoginId(params.id)
-		if (!user) {
-			response.sendError(404)
-		} else {
-			[user : user]
-		}
-	}
 }
