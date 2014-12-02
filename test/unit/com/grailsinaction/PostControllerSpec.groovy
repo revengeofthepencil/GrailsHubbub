@@ -48,24 +48,17 @@ class PostControllerSpec extends Specification {
 	}
 	
 	def "Adding a valid new post to the timeline"() {
-		given: "A user with posts in the DB"
-		User chuck = new User(
-			loginId: "chuck_norris",
-			password: "password"
-			).save(failOnError: true)
-		and: "A loginId param"
-		params.id = chuck.loginId
+		given: "A mock post service"
+		def mockPostService = Mock(PostService)
+		1 * mockPostService.createPost(_, _) >>
+			new Post(content: "Mock Post")
+		controller.postService = mockPostService
 		
-		and: "Some content in the post"
-		params.content = "Guy farted seemed near and hour"
-		
-		when: "addPost is invoked"
-		def model = controller.addPost()
-		
-		then: "the flash message should show us success"
-		flash.message == "Successfully created post"
-		response.redirectedUrl == "/post/timeline/${chuck.loginId}"
-		Post.countByUser(chuck) == 1
+		when: "controller is invoked"
+		def result = controller.addPost("joe_cool", "posting up a storm")
+		then: "redirected to timeline, flash message is OK"
+		flash.message ==~ /Successfully created post: Mock.*/
+		response.redirectedUrl == '/post/timeline/joe_cool'		
 			
 	}
 	

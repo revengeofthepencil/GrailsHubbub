@@ -23,4 +23,17 @@ class PostServiceSpec extends Specification {
         User.findByLoginId("chuck_norris").posts.size() == 1
 
     }
+	
+	def "Invalid posts generate exceptional outcomes"() {
+		given: "A new user in the db"
+		new User(loginId: "chuck_norris",
+				  password: "password").save(failOnError: true)
+		
+		when: "an invalid post is attempted"
+		def newPost = service.createPost("chuck_norris", null)
+		
+		then: "an exception is thrown and no post is saved"
+		thrown(PostException)
+				  
+	}
 }
