@@ -69,6 +69,24 @@ class PostControllerSpec extends Specification {
 			
 	}
 	
+	@spock.lang.Unroll
+	def "Testing id of #suppliedId redirects to #expectedUrl"() {
+		given:
+		params.id= suppliedId
+	
+		when: "Controller is invoked"
+		controller.home()
+	
+		then:
+		response.redirectedUrl == expectedUrl
+	
+		where:
+		suppliedId  |   expectedUrl
+		'joe_cool'  |   '/post/timeline/joe_cool'
+		null        |   '/post/timeline/chuck_norris'
+	
+	}
+	
 	
 
 }
