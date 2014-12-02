@@ -10,7 +10,6 @@
   <div>
     <div id="hd">
       <g:link uri="/">
-<!--         <g:img id="logo" uri="/images/headerlogo.png" alt="hubbub logo"/> -->
         <asset:image src="headerlogo.png" alt="hubbub logo"/>
       </g:link>
     </div>
