@@ -8,7 +8,7 @@ import spock.lang.Specification
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
 @TestFor(PostController)
-@Mock([User, Post])
+@Mock([User, Post, LameSecurityFilters])
 class PostControllerSpec extends Specification {
 	
 	def "get a user's timeline based on their ID"() {
@@ -80,6 +80,13 @@ class PostControllerSpec extends Specification {
 	
 	}
 	
-	
+	def "Existing security filter for unauthenticated user"() {
+		when:
+		withFilters(action: "addPost") {
+			controller.addPost("glen_a_smith", "A test post")
+		}
+		then:
+		response.redirectedUrl == '/login/form'
+	}
 
 }
