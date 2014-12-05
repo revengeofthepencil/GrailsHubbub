@@ -23,6 +23,10 @@ class PostController {
         }
     }
     
+	def global() {
+		[ posts : Post.list(params), postCount : Post.count() ]
+	}
+	
     def personal() {
         if (!session.user) {
             redirect controller: "login", action: "form"
