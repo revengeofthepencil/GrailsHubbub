@@ -1,3 +1,4 @@
+<%@ taglib prefix="g" uri="/web-app/WEB-INF/tld/grails.tld" %>
 <html>
 <head>
     <title>Sign into Hubbub</title>
