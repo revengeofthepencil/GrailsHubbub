@@ -25,6 +25,8 @@
 	</div>
 	
 	<div id="allPosts">
+		<g:render template="postEntry" collection="${user.posts}" var="post" />
+		<%--
 		<g:each in="${user.posts}" var="post">
 			<div class="postEntry">
 				<div class="postText">
@@ -35,6 +37,7 @@
 				</div>
 			</div>
 		</g:each>
+		 --%>
 	</div>
 </body>
 
