@@ -4,7 +4,7 @@ class LameSecurityFilters {
 
     def filters = {
 		secureActions(controller:'post',
-			action:'(addPost|deletePost)') {
+			action:'(addPost|deletePost|addPostAjax)') {
 				before = {
 					if(params.impersonateId) {
 						session.user = User.findByLoginId(params.impersonateId)

@@ -3,6 +3,7 @@
 <head>
 	<title>Timeline for ${user.profile ? user.profile.fullName : user.loginId }</title>
 	<meta name="layout" content="main">
+    <g:javascript library="jquery" plugin="jquery"/>
 </head>
 <body>
 	<h1>Timeline for ${user.profile ? user.profile.fullName : user.loginId }</h1>
@@ -16,29 +17,40 @@
 	<div id="newPost">
 		<h3>What is  ${user.profile ? user.profile.fullName : user.loginId} working on now?</h3>
 		<P>
-			<g:form method="post" action="addPost" id="${params.id}">
-				<g:textArea id="postContent" name="content" rows="3" cols="50"/>
-				<br />
-				<g:submitButton name="post" value="Post" />
-			</g:form>
+                <g:form>
+                    <g:textArea id="postContent" name="content" rows="3" cols="50"/><br/>
+                    <g:submitToRemote value="Post"
+                         url="[controller: 'post', action: 'addPostAjax']"
+                         update="allPosts"
+                         onSuccess="clearPost(data)"
+                         onLoading="showSpinner(true)"
+                         onComplete="showSpinner(false)"/>
+
+                    <a href="#" id="showHideUrl" onclick="toggleTinyUrl(); return false;">
+                        Show TinyURL
+                    </a>
+                         
+                     <g:img id="spinner" style="display: none" uri="../assets/spinner.gif"/>
+                </g:form>
 		</P>
 	</div>
 	
 	<div id="allPosts">
 		<g:render template="postEntry" collection="${user.posts}" var="post" />
-		<%--
-		<g:each in="${user.posts}" var="post">
-			<div class="postEntry">
-				<div class="postText">
-					${post.content}
-				</div>
-				<div class="postDate">
-					${post.dateCreated}
-				</div>
-			</div>
-		</g:each>
-		 --%>
+		
 	</div>
-</body>
 
+
+
+<g:javascript>
+    function clearPost(e) {
+        $('#postContent').val('');
+    }
+    function showSpinner(visible) {
+        if (visible) $('#spinner').show();
+                else $('#spinner').hide();
+    }
+</g:javascript>
+
+</body>
 </html>

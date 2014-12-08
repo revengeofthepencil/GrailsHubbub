@@ -5,6 +5,7 @@
   <g:external dir="css" file="hubbub.css"/>
   <g:external dir="css" file="main.css"/>
   <g:layoutHead />
+  <r:layoutResources />
 </head>
 <body>
   <div>
@@ -23,5 +24,7 @@
       </div>
     </div>
   </div>
+    <r:layoutResources />
+  
 </body>
 </html>
