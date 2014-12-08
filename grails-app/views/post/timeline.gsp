@@ -1,4 +1,3 @@
-<%@ taglib prefix="g" uri="/web-app/WEB-INF/tld/grails.tld" %>
 <html>
 <head>
 	<title>Timeline for ${user.profile ? user.profile.fullName : user.loginId }</title>
@@ -26,12 +25,23 @@
                          onLoading="showSpinner(true)"
                          onComplete="showSpinner(false)"/>
 
+				
                     <a href="#" id="showHideUrl" onclick="toggleTinyUrl(); return false;">
                         Show TinyURL
                     </a>
                          
                      <g:img id="spinner" style="display: none" uri="../assets/spinner.gif"/>
                 </g:form>
+				                
+				<div id="tinyUrl" style="display:none;">
+				    <g:formRemote name="tinyUrlForm" url="[action: 'tinyUrl']"
+				                  onSuccess="addTinyUrl(data);">
+				        TinyUrl: <g:textField name="fullUrl"/>
+				      <g:submitButton name="submit" value="Make Tiny"/>
+				    </g:formRemote>
+				</div>              
+								
+		
 		</P>
 	</div>
 	
@@ -41,8 +51,27 @@
 	</div>
 
 
-
 <g:javascript>
+
+    function addTinyUrl(data) {
+                var tinyUrl = data.urls.small;
+                var postBox = $("#postContent")
+                postBox.val(postBox.val() + tinyUrl);
+                toggleTinyUrl();
+                $("#tinyUrl input[name='fullUrl']").val('');
+    }
+    
+	function toggleTinyUrl() {
+	    var toggleText = $('#showHideUrl');
+	    if ($('#tinyUrl').is(':visible')) {
+	        $('#tinyUrl').slideUp(300);
+	        toggleText.innerText = 'Hide TinyURL';
+	    } else {
+	        $('#tinyUrl').slideDown(300);
+	        toggleText.innerText = 'Show TinyURL';
+	    }
+	}
+
     function clearPost(e) {
         $('#postContent').val('');
     }
