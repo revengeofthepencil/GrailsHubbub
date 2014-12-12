@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>Hubbub &raquo; <g:layoutTitle default="Welcome" /></title>
+  <title>My Own Hubbub &raquo; <g:layoutTitle default="Welcome" /></title>
   <g:external dir="css" file="hubbub.css"/>
   <g:external dir="css" file="main.css"/>
   <g:layoutHead />
