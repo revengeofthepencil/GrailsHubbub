@@ -1,6 +1,12 @@
 package com.grailsinaction
 
 class UserController {
+	static navigation = [
+		[group:'tabs', action:'search', order: 90],
+		[action: 'advSearch', title: 'Advanced Search', order: 95],
+		[action: 'register', order: 99, isVisible: { true }]
+	]
+
     static scaffold = true
 	
 	def search() {}

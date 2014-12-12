@@ -4,6 +4,11 @@ import grails.plugin.cache.CachePut;
 import grails.plugin.cache.Cacheable;
 
 class PostController {
+	static navigation = [
+		[group:'tabs', action: 'personal', title: 'My Timeline', order: 0],
+		[action: 'global', title: 'Global Timeline', order: 1]
+	]
+	
     static scaffold = true
 
     static defaultAction = "home"
