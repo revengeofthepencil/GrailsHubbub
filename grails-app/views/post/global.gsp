@@ -1,4 +1,3 @@
-<%@ taglib prefix="g" uri="/web-app/WEB-INF/tld/grails.tld" %>
 <html>
 <head>
 	<title>Timeline for all posts</title>
@@ -25,7 +24,7 @@
 				</div>
 			</div>
 		</g:each>
-		
+
         <g:paginate action="global" total="${postCount}" max="3"/>
 	</div>
 </body>

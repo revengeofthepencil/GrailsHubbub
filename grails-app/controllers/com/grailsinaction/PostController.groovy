@@ -1,5 +1,8 @@
 package com.grailsinaction
 
+import grails.plugin.cache.CachePut;
+import grails.plugin.cache.Cacheable;
+
 class PostController {
     static scaffold = true
 
@@ -23,10 +26,12 @@ class PostController {
         }
     }
     
+	@Cacheable('globaltimeline')
 	def global() {
 		[ posts : Post.list(params), postCount : Post.count() ]
 	}
 	
+	@CachePut(value='userTimeline')
     def personal() {
         if (!session.user) {
             redirect controller: "login", action: "form"
