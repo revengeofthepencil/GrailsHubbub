@@ -29,8 +29,9 @@
                     <a href="#" id="showHideUrl" onclick="toggleTinyUrl(); return false;">
                         Show TinyURL
                     </a>
+
+                     <g:img id="spinner" style="display: none" uri="/images/spinner.gif"/>
                          
-                     <g:img id="spinner" style="display: none" uri="../assets/spinner.gif"/>
                 </g:form>
 				                
 				<div id="tinyUrl" style="display:none;">
