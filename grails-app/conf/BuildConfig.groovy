@@ -47,7 +47,7 @@ grails.project.dependency.resolution = {
     }
 
     def gebVersion = "0.9.2"
-    def seleniumVersion = "2.41.0"
+    def seleniumVersion = "2.43.0"
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
@@ -55,7 +55,12 @@ grails.project.dependency.resolution = {
         test "org.gebish:geb-spock:$gebVersion"
 
         test "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+        //test "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
         test "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+		
+		//test "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+		
+		
 //        test "org.seleniumhq.selenium:selenium-htmlunit-driver:$seleniumVersion", {
 //            exclude "xml-apis"
 //        }

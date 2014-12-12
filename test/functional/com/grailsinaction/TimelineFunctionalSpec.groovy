@@ -1,6 +1,7 @@
 package com.grailsinaction
 
 import com.grailsinaction.pages.TimelinePage;
+import com.grailsinaction.pages.LoginPage
 
 import geb.spock.GebReportingSpec
 import spock.lang.Stepwise
@@ -11,7 +12,7 @@ class TimelineFunctionalSpec extends GebReportingSpec {
 		to TimelinePage, "phil"
 
 		then:
-		whatHeading.text() ==  "What is Phil Potts hacking on right now?"
+		whatHeading.text() ==  "What is Phil Potts working on now?"
 	}
 
 	def "Submitting a new Post"() {
