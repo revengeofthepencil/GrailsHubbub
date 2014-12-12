@@ -19,9 +19,14 @@
       <nav:render group="tabs"/>
       <g:layoutBody/>
     </div>  <!-- end body -->
+
     <div id="ft">
-      <div id="footerText">Hubbub - Social Networking on Grails</div>
+      <div id="footerText">Hubbub - Social Networking on Grails
+      <br />Version <g:meta name="app.version"/> 
+      on Grails <g:meta name="app.grails.version"/>
+      </div>
     </div>
+
   </div>
   <r:layoutResources />
 </body>
