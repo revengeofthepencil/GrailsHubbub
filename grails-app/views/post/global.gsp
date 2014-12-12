@@ -14,6 +14,8 @@
 	
 	<div id="allPosts">
 		
+		<g:render template="postEntry" collection="${posts}" var="post" />
+		<%-- 
 		<g:each in="${posts}" var="post">
 			<div class="postEntry">
 				<div class="postText">
@@ -24,6 +26,7 @@
 				</div>
 			</div>
 		</g:each>
+		--%>
 
         <g:paginate action="global" total="${postCount}" max="3"/>
 	</div>
