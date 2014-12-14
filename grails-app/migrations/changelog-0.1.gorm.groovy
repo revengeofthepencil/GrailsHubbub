@@ -62,7 +62,7 @@ databaseChangeLog = {
 
 			column(name: "jabber_address", type: "varchar(255)")
 
-			column(name: "photo", type: "binary(2097152)")
+			column(name: "photo", type: "TEXT")
 
 			column(name: "timezone", type: "varchar(255)")
 
