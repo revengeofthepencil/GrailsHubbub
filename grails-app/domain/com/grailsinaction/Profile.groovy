@@ -12,6 +12,7 @@ class Profile {
 	String timezone
 	String country
 	String jabberAddress
+	String twitterId
 	
 	static constraints = {
 		fullName blank: false
@@ -21,6 +22,7 @@ class Profile {
 		photo nullable: true, maxSize: 2 * 1024 * 1024
 		country nullable: true
 		timezone nullable: true
+		twitterId nullable: true
 		jabberAddress email: true, nullable: true
 		
 	}
