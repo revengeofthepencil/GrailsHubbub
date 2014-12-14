@@ -4,6 +4,7 @@ databaseChangeLog = {
 		dropColumn(columnName: "twitter_id", tableName: "profile")
 	}
 	
+	/*
 	changeSet(author: "alexwalker (hand-coded)", id: "1418599873791-2") {
 		grailsChange {
 
@@ -32,4 +33,5 @@ databaseChangeLog = {
 			}
 		}
 	}
+	*/
 }
