@@ -21,4 +21,6 @@ databaseChangeLog = {
 			column(name: "user_id")
 		}
 	}
+	
+	
 }
