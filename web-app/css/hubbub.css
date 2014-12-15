@@ -130,3 +130,21 @@ dd {
     margin: 1em;
     font-weight: bold;
 }
+
+
+.searchPost {
+    border: 1px dotted black;
+    background-color: #dddddd;
+    padding: 1em;
+    margin: 1em 0em;
+}
+
+.searchFrom {
+    color: #333333;
+    font-style: italic;
+    font-size: smaller;
+}
+
+.searchContent {
+
+}
