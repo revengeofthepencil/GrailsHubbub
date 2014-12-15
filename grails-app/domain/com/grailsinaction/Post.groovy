@@ -1,7 +1,9 @@
 package com.grailsinaction
 
 class Post {
-	String content
+    static searchable = true
+
+		String content
 	Date dateCreated
 	
     static constraints = {

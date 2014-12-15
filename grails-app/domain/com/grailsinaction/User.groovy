@@ -1,7 +1,8 @@
 package com.grailsinaction
 
 class User {
-
+	static searchable = true
+	
     String loginId
     String password
     Date dateCreated
