@@ -1,8 +1,11 @@
 package com.grailsinaction
 
 class User {
-	static searchable = true
-	
+
+    static searchable = {
+        except = ["password"]
+    }
+		
     String loginId
     String password
     Date dateCreated
