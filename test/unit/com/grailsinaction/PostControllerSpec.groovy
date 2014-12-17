@@ -4,17 +4,25 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 import spock.lang.Unroll
+import grails.plugin.springsecurity.SpringSecurityService
+
 
 @TestFor(PostController)
 @Mock([User, Post, LameSecurityFilters])
 class PostControllerSpec extends Specification {
+	
+	def mockSecurityService
 
+	def setup() {
+		mockSecurityService = Mock(SpringSecurityService)
+		mockSecurityService.encodePassword(_ as String) >> "kjsdfhkshfalhlkdshflas"
+	}
+	
     def "Get a users timeline given their id"() {
         given: "A user with posts in the db"
-        User chuck = new User(
-                loginId: "chuck_norris",
-                password: "password")
-        chuck.addToPosts(new Post(content: "A first post"))
+        User chuck = new User(loginId: "chuck_norris")
+        chuck.passwordHash = "ksadhfkasjdfh"
+		chuck.addToPosts(new Post(content: "A first post"))
         chuck.addToPosts(new Post(content: "A second post"))
         chuck.save(failOnError: true)
 
@@ -64,8 +72,11 @@ class PostControllerSpec extends Specification {
 
     def "Adding an invalid new post to the timeline"() {
         given: "A user with posts in the db"
-        User chuck = new User(loginId: "chuck_norris", password: "password").save(failOnError: true)
-
+		User chuck = new User(loginId: "chuck_norris")
+		chuck.passwordHash = "ksadhfkasjdfh"
+		chuck.save(failOnError: true)
+		
+			
         and: "A post service that throws an exception with the given data"
         def errorMsg = "Invalid or empty post"
         def mockPostService = Mock(PostService)

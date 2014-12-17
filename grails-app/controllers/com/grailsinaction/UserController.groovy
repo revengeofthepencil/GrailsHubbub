@@ -6,7 +6,9 @@ class UserController {
 		[action: 'advSearch', title: 'Advanced Search', order: 95],
 		[action: 'register', order: 99, isVisible: { true }]
 	]
-
+	
+	def springSecurityService
+	
     static scaffold = true
 	
 	def search() {}

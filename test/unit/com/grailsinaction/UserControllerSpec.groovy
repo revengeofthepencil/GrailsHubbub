@@ -3,6 +3,7 @@ package com.grailsinaction
 import grails.test.mixin.*
 import spock.lang.Specification
 import spock.lang.Unroll
+import grails.plugin.springsecurity.SpringSecurityService
 
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
@@ -24,6 +25,12 @@ class UserControllerSpec extends Specification {
 		params['profile.fullName'] = "Johnny Cash"
 		params['profile.email'] = "maninblack@cash.com"
 		params['profile.homepage'] = "http://www.johnnycash.com"
+		
+		and: "a mock security service"
+		controller.springSecurityService = Stub(SpringSecurityService) {
+			encodePassword("winnning") >> "HFDJDKALSJDF"
+		}
+
 		
 		when: "the user is registered"
 		request.method = "POST"
@@ -77,6 +84,13 @@ class UserControllerSpec extends Specification {
 
 		and: "which has been validated"
 		urc.validate()
+		
+		
+		and: "a mock security service"
+		controller.springSecurityService = Stub(SpringSecurityService) {
+			encodePassword("winnning") >> "HFDJDKALSJDF"
+		}
+
 
 		when: "the register action is invoked"
 		controller.register2(urc)
