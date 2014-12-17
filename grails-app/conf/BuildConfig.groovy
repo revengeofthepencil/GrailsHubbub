@@ -43,7 +43,7 @@ grails.project.dependency.resolution = {
 
 		// For the Searchable plugin's 'compass' dependency
 		mavenRepo "http://repo.grails.org/grails/core"
-
+		mavenRepo 'http://repo.spring.io/milestone'		
 		// uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
 		//mavenRepo "http://repository.codehaus.org"
 		//mavenRepo "http://download.java.net/maven/2/"
@@ -77,6 +77,8 @@ grails.project.dependency.resolution = {
 		compile ':cache:1.1.1', ":cache-ehcache:1.0.1"
 		compile ":searchable:0.6.6"
 
+		compile ':spring-security-core:2.0-RC2'
+   				
 		// plugins needed at runtime but not for compilation
 		runtime ":hibernate:3.6.10.6" // or ":hibernate4:4.1.11.6"
 		runtime ":database-migration:1.3.8"
