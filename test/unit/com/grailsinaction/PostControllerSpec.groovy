@@ -120,17 +120,6 @@ class PostControllerSpec extends Specification {
                                                                    
     }
     
-    def "Exercising security filter for unauthenticated user"() {
-
-        when:
-        withFilters(action: "addPost") {
-            controller.addPost("glen_a_smith", "A first post")
-        }
-
-        then:
-        response.redirectedUrl == '/login/form'
-
-    }
 
 }
 
