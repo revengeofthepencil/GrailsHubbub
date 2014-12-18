@@ -6,6 +6,9 @@ class UrlMappings {
                 // apply constraints here
             }
         }
+		
+		"/login/form"(controller: "auth", action: "form")
+		
 
         "/timeline/chuck_norris" {
             controller = "post"

@@ -139,6 +139,9 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.grailsinac
 grails.plugin.springsecurity.authority.className = 'com.grailsinaction.Role'
 grails.plugin.springsecurity.userLookup.usernamePropertyName = "loginId"
 grails.plugin.springsecurity.userLookup.passwordPropertyName = "passwordHash"
+grails.plugin.springsecurity.auth.loginFormUrl = "/login/form"
+grails.plugin.springsecurity.failureHandler.defaultFailureUrl = "/login/form"
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = "/timeline"
 
 
 grails.plugin.springsecurity.rejectIfNoRule = false

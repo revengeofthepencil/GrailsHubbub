@@ -11,23 +11,11 @@
 	        ${flash.message}
 	    </div>
 	</g:if>
-	
+
 	<div id="allPosts">
 		
 		<g:render template="postEntry" collection="${posts}" var="post" />
-		<%-- 
-		<g:each in="${posts}" var="post">
-			<div class="postEntry">
-				<div class="postText">
-					${post.content}
-				</div>
-				<div class="postDate">
-					${post.dateCreated}
-				</div>
-			</div>
-		</g:each>
-		--%>
-
+		
         <g:paginate action="global" total="${postCount}" max="3"/>
 	</div>
 </body>

@@ -1,6 +1,6 @@
 package com.grailsinaction
 
-class LoginController {
+class AuthController {
 
 	static defaultAction = 'form'
 	
@@ -8,6 +8,8 @@ class LoginController {
         [loginId: id]
     }
 	
+	/**
+	 * hand this overt to Spring security
 	
 	def signIn(String loginId, String password) {
 		User user = User.findByLoginId(loginId)
@@ -20,4 +22,6 @@ class LoginController {
 		}
 		
 	}
+	*/
 }
+

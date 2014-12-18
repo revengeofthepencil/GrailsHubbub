@@ -10,13 +10,23 @@
 </head>
 <body>
   <div>
+	  
+  
     <div id="hd">
       <g:link uri="/">
         <g:img id="logo" uri="/images/headerlogo.png" alt="hubbub logo"/>
       </g:link>
     </div>
-    <div id="bd"><!-- start body -->
+    <div id="bd">
+    	  
+    <!-- start body -->
       <nav:render group="tabs"/>
+   		  <sec:ifLoggedIn>
+		  <g:form name="logoutForm" controller="logout" action="index">
+		    <g:submitButton name="signOut" value="sign out"/>
+		  </g:form>
+		</sec:ifLoggedIn>
+          
       <g:layoutBody/>
     </div>  <!-- end body -->
 

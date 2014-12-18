@@ -1,7 +1,8 @@
 package com.grailsinaction
 
-import grails.plugin.cache.CachePut;
-import grails.plugin.cache.Cacheable;
+import grails.plugin.cache.CachePut
+import grails.plugin.cache.Cacheable
+import grails.plugin.springsecurity.SpringSecurityService
 
 class PostController {
 	static navigation = [
@@ -13,6 +14,7 @@ class PostController {
 
     static defaultAction = "home"
 
+	def springSecurityService
     def postService
 
     def home() {
@@ -38,14 +40,8 @@ class PostController {
 	
 	@CachePut(value='userTimeline')
     def personal() {
-        if (!session.user) {
-            redirect controller: "login", action: "form"
-            return
-        } else {
-            // Need to reattach the user domain object to the session using
-            // the refresh() method.
-            render view: "timeline", model: [ user : session.user.refresh() ]
-        }
+		def user = springSecurityService.currentUser
+        render view: "timeline", model: [ user : user ]
     }
 
     def addPost(String id, String content)  {
@@ -59,11 +55,13 @@ class PostController {
     }
 	
 	def addPostAjax(String content) {
+		def user = springSecurityService.currentUser
+		
 		try {
 			def newPost = postService.createPost(
-				session.user.loginId, content)
+				user.loginId, content)
 			def recentPosts = Post.findAllByUser(
-				session.user,
+				user,
 				[sort: 'dateCreated', order: 'desc', max: 20]
 				)
 			render template: 'postEntry',
