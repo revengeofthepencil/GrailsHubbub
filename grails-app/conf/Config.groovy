@@ -141,3 +141,20 @@ grails.plugin.springsecurity.userLookup.usernamePropertyName = "loginId"
 grails.plugin.springsecurity.userLookup.passwordPropertyName = "passwordHash"
 
 
+grails.plugin.springsecurity.rejectIfNoRule = false
+grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+grails.plugin.springsecurity.interceptUrlMap = [
+	'/':                              ['permitAll'],
+	'/post/global':                   ['permitAll'],
+	'/user/register*':                ['permitAll'],
+	'/login/**':                      ['permitAll'],
+	'/logout/**':                     ['permitAll'],
+	'/**/js/**':                      ['permitAll'],
+	'/**/css/**':                     ['permitAll'],
+	'/**/images/**':                  ['permitAll'],
+	'/user/**':                       ['hasRole("ROLE_ADMIN")'],
+	'/role/**':                       ['hasRole("ROLE_ADMIN")'],
+	'/**':                            ['isAuthenticated()']
+]
+
+
