@@ -8,11 +8,12 @@ import spock.lang.Stepwise
 
 class TimelineFunctionalSpec extends GebReportingSpec {
 	def "Does timeline load for user 'phil'"() {
-		when:
-		to TimelinePage, "phil"
+        when:
+        login "frankie", "testing"
+        go "users/phil"
 
 		then:
-		whatHeading.text() ==  "What is Phil Potts working on now?"
+        $("#newPost h3").text() == "What is Phil Potts working on now?"
 	}
 
 	def "Submitting a new Post"() {

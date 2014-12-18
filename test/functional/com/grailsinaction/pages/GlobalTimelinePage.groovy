@@ -12,7 +12,7 @@ class GlobalTimelinePage extends geb.Page {
     }
 
     static at = {
-        title.contains("Global Timeline")
+        title.contains("Timeline for all posts")
         $("#allPosts")
     }
 }

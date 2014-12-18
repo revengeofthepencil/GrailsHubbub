@@ -8,7 +8,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 
 
 @TestFor(PostController)
-@Mock([User, Post, LameSecurityFilters])
+@Mock([User, Post])
 class PostControllerSpec extends Specification {
 	
 	def mockSecurityService
