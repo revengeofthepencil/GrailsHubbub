@@ -4,12 +4,23 @@ import org.junit.internal.runners.statements.FailOnTimeout;
 
 import spock.lang.*
 
-class UserIntegrationSpec extends Specification {
+import grails.plugin.springsecurity.SpringSecurityService
 
+class UserIntegrationSpec extends Specification {
+	
+	def mockSecurityService
+
+	def setup() {
+		mockSecurityService = Mock(SpringSecurityService)
+		mockSecurityService.encodePassword(_ as String) >> "kjsdfhkshfalhlkdshflas"
+	}
 	
     def "saving a user to the DB"() {
 		given: "A brand spanking new user"
-		def joe = new User(loginId: 'joe', password: 'secret')
+		
+		User joe = new User(loginId: "joe")
+		joe.passwordHash = "secret"
+		
 		when: "the user is saved"
 		joe.save()
 		then: "it saved successfully and can be found in the DB"
@@ -21,23 +32,32 @@ class UserIntegrationSpec extends Specification {
 	
 	def "updating a saved user"() {
 		given: "An existing user"
-		def testPassword = 'ohyeah!'
-		def existingUser = new User(loginId: 'joe', password: 'secret')
+		def testLoginId = 'ohyeah!'
+		//def existingUser = new User(loginId: 'joe', password: 'secret')
+		
+		
+		User existingUser = new User(loginId: "joe")
+		existingUser.passwordHash = "secret"
+		existingUser.enabled = true
 		existingUser.save(failOnError: true)
+		
 		when: "a property is changed"
+		
 		def foundUser = User.get(existingUser.id)
-		foundUser.password = testPassword
+		foundUser.enabled = false
 		foundUser.save(failOnError: true)
 		
 		then: "The change persists in the DB"
-		User.get(existingUser.id).password == testPassword
+		User.get(existingUser.id).enabled == false
 	}
 	
 	
 	def "validation applied when saving a user"() {
 		given: "An invalid user record"
-		def invalidUser = new User(loginId: 'joe', password: 'tiny', 
+		def invalidUser = new User(loginId: 'joe', 
 			profile: new Profile(homepage: 'http://not-a-valid-url'))
+		invalidUser.passwordHash = "secret"
+		
 		
 		when: "the user is validated"
 
@@ -47,35 +67,18 @@ class UserIntegrationSpec extends Specification {
 		
 		then:
 		invalidUser.hasErrors()
-		"size.toosmall" == invalidUser.errors.getFieldError("password").code
-		"tiny" == invalidUser.errors.getFieldError("password").rejectedValue
-
 		"url.invalid" == invalidUser.profile.errors.getFieldError("homepage").code
 		"http://not-a-valid-url" == invalidUser.profile.errors.getFieldError("homepage").rejectedValue
-		
 		!invalidUser.errors.getFieldError("loginId")
 
 	}
 	
 	
-	def "extra validation applied to make sure password does not match id"() {
-		given: "An invalid user record"
-		def invalidUser = new User(loginId: 'longenough',
-			password: 'longenough')
 
-		when: "the user is validated"
-		invalidUser.validate()
-		
-		then:
-		invalidUser.hasErrors()
-		// TODO: what is the appropriate code?
-		"longenough" == invalidUser.errors.getFieldError("password").rejectedValue
-	}
-	
 	
 	def "deleteing a saved user"() {
 		given: "An existing user"
-		def existingUser = new User(loginId: 'joe', password: 'secret')
+		def existingUser = new User(loginId: 'joe', passwordHash: 'secret')
 		existingUser.save(failOnError: true)
 
 		when: "the user is deleted"
@@ -89,9 +92,9 @@ class UserIntegrationSpec extends Specification {
 
 	def "following a user"() {
 		given: "An set of existing users"
-		def john = new User(loginId: 'john', password:'password').save()
-		def tom = new User(loginId:'tom', password:'secret').save()
-		def nina = new User(loginId:'nina', password:'secret').save()
+		def john = new User(loginId: 'john', passwordHash:'password').save()
+		def tom = new User(loginId:'tom', passwordHash:'secret').save()
+		def nina = new User(loginId:'nina', passwordHash:'secret').save()
 
 		when: "Tom follows John & Nina, Nina follows John"
 		tom.addToFollowing(john)

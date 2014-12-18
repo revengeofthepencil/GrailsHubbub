@@ -6,7 +6,7 @@ class PostIntegrationSpec extends IntegrationSpec {
 	
 	void "adding posts to user links posts correctly"() {
 		given: "A brand spanking new user"
-		def user = new User(loginId: 'tomwaits', password: 'secret')
+		def user = new User(loginId: 'tomwaits', passwordHash: 'secret')
 		user.save(failOnError: true)
 		
 		when: "Posts are added to user"
@@ -21,7 +21,7 @@ class PostIntegrationSpec extends IntegrationSpec {
 	
     void "posts linked to a user can be retrieved"() {
 		given: "A user with multiple posts"
-		def user = new User(loginId: 'tomwaits', password: 'secret')
+		def user = new User(loginId: 'tomwaits', passwordHash: 'secret')
 		user.save(failOnError: true)
 		user.addToPosts(new Post(content: "A Post"))
 		user.addToPosts(new Post(content: "B Post"))
@@ -41,7 +41,7 @@ class PostIntegrationSpec extends IntegrationSpec {
 	
 	void "posts can be tagged"() {
 		given: "A user with a set of tags"
-		def user = new User(loginId: 'tomwaits', password: 'secret')
+		def user = new User(loginId: 'tomwaits', passwordHash: 'secret')
 		
 		def tagWaits = new Tag(name: 'Tom Waits')
 		def tagCash = new Tag(name: 'Johnny Cash')
