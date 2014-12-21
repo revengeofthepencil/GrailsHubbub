@@ -74,7 +74,7 @@ grails.project.dependency.resolution = {
 		// plugins for the compile step
 		compile ":scaffolding:2.0.1"
 		compile ":mail:1.0.1"
-		compile ':cache:1.1.1', ":cache-ehcache:1.0.1"
+		//compile ':cache:1.1.1', ":cache-ehcache:1.0.1"
 		compile ":searchable:0.6.6"
 		compile ":mysql-connectorj:5.1.22.1"
 		

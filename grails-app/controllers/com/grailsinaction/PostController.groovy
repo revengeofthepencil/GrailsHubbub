@@ -1,7 +1,5 @@
 package com.grailsinaction
 
-import grails.plugin.cache.CachePut
-import grails.plugin.cache.Cacheable
 import grails.plugin.springsecurity.SpringSecurityService
 
 class PostController {
@@ -33,12 +31,12 @@ class PostController {
         }
     }
     
-	@Cacheable('globaltimeline')
+	//@Cacheable('globaltimeline')
 	def global() {
 		[ posts : Post.list(params), postCount : Post.count() ]
 	}
 	
-	@CachePut(value='userTimeline')
+	//@CachePut(value='userTimeline')
     def personal() {
 		def user = springSecurityService.currentUser
         render view: "timeline", model: [ user : user ]
