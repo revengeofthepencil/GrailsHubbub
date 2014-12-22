@@ -8,6 +8,6 @@ class AuditService {
 	
 	@grails.events.Listener
 	def onNewPost(Post newPost) {
-		log.error('got it! yeah! woo hoo!')
+		log.error("new post is from ${newPost.user.loginId} with content ${newPost.shortContent}")
 	}
 }
