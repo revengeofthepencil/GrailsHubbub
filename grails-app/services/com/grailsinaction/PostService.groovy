@@ -17,6 +17,7 @@ class PostService {
 			def post = new Post(content : content)
 			user.addToPosts(post)
 			if (post.validate() && user.save()) {
+				event 'onNewPost', post
 				return post
 			} else {
 				throw new PostException(

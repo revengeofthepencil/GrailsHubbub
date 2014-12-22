@@ -78,6 +78,8 @@ grails.project.dependency.resolution = {
 		compile ":searchable:0.6.6"
 		compile ":mysql-connectorj:5.1.22.1"
 		
+		compile ":platform-core:1.0.RC5"
+		
 		compile ':spring-security-core:2.0-RC2'
    				
 		// plugins needed at runtime but not for compilation
