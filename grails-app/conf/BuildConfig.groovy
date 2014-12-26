@@ -81,7 +81,8 @@ grails.project.dependency.resolution = {
 		compile ":platform-core:1.0.RC5"
 		
 		compile ':spring-security-core:2.0-RC2'
-   				
+		compile ":mongodb:1.3.0"
+		
 		// plugins needed at runtime but not for compilation
 		runtime ":hibernate:3.6.10.6" // or ":hibernate4:4.1.11.6"
 		runtime ":database-migration:1.3.8"
