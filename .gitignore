@@ -34,3 +34,8 @@
 .classpath
 .settings/*
 target-eclipse/*
+.idea/*
+GrailsHubbub-grailsPlugins.iml
+GrailsHubbub.iml
+out/*
+
